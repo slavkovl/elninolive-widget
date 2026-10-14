@@ -6,10 +6,15 @@
  * route refuses framing. The widget loads no third-party script, font or image
  * at runtime (fonts are self-hosted at build time), so the policy can be tight.
  */
+// `next dev` serves eval-based source maps; without 'unsafe-eval' the page never
+// hydrates in development (the needle stays at zero, the tabs do nothing).
+// Production builds keep the strict policy.
+const dev = process.env.NODE_ENV === 'development';
+
 const WIDGET_CSP = [
   "default-src 'self'",
   // Next.js App Router emits inline hydration scripts; React inline style={{}} on the gauge.
-  "script-src 'self' 'unsafe-inline'",
+  `script-src 'self' 'unsafe-inline'${dev ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data:",
   "font-src 'self' data:",

@@ -17,11 +17,21 @@ Three readings side by side, each labelled with its agency and its own El Niño 
 Also on the card:
 
 - **The ENSO Alert System status** (e.g. "El Niño Advisory") from CPC's monthly ENSO Diagnostic Discussion.
-- **Phase and direction.** El Niño / Neutral / La Niña from the latest weekly Niño 3.4 (±0.5 °C), and
-  strengthening / steady / weakening from the change over the last four weeks.
-- **An intensity gauge** for the conventional weekly Niño 3.4: Neutral < 0.5, Weak 0.5–1,
-  Moderate 1–1.5, Strong 1.5–2, Very strong ≥ 2 °C. The scale grows past 3 °C when a reading does.
-  The needle shows the conventional index only, never RONI.
+- **The selected reading, large, with its verdict.** The three readings are tabs. The selected
+  one is shown big with its phase at that index's own threshold ("Very strong El Niño",
+  "La Niña", "Neutral") and what it covers (e.g. "week of 7 Oct", "Jul–Sep 2026"), both in
+  the colour of the gauge sector the needle lands in. The conventional weekly reading also
+  carries its four-week direction (strengthening / weakening).
+- **A gauge for the selected reading.** A half ring on the ColorBrewer RdBu scale, El Niño
+  on the right (reds) and La Niña on the left (blues), Neutral astride zero, on a −3…+3 °C
+  scale that grows symmetrically when a reading goes past it, numbered where sectors meet.
+  "La Niña" and "El Niño" sit inside the ring, anchored at the thresholds, with curved
+  arrows towards the stronger values. For the
+  conventional Niño 3.4 the ring carries NOAA's intensity bands on either side (Neutral
+  < 0.5, Weak 0.5–1, Moderate 1–1.5, Strong 1.5–2, Very strong ≥ 2 °C). BoM's relative
+  index and RONI are not classified that way by their agencies, so they get a three-sector
+  ring split at the index's own threshold (±0.8 °C and ±0.5 °C) and no intensity word. It
+  opens on the conventional index.
 - **A "Powered by ElNinoLive" backlink** to the live dashboard.
 
 ## Data sources
@@ -114,9 +124,9 @@ of the site removed, not a rewrite. The only runtime dependencies are `next`, `r
 app/widget/embed/page.tsx   the widget (server component)
 app/page.tsx                local preview page
 app/layout.tsx, globals.css fonts and colour tokens (light/dark)
-components/gauge.tsx        intensity gauge (SVG)
+components/gauge.tsx        intensity gauge (SVG wheel, El Niño right / La Niña left)
 components/count-up.tsx     number animation (real value is server-rendered)
-lib/enso.ts                 intensity bands, labels, gauge scale
+lib/enso.ts                 intensity bands, labels, gauge sectors and scale
 lib/data/*.ts               fetching, parsing, fallbacks
 lib/data/fallback/*.json    bundled snapshots used only when a source is unreachable
 next.config.mjs             frame-ancestors * for /widget/embed only
